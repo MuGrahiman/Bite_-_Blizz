@@ -15,4 +15,5 @@ db.once("open", () => console.log("Database Connected Successfully"));
 
 // Models
 
-require('./category')
+require('./Category')
+require('./Recipe')
