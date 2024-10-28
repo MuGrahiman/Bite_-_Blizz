@@ -4,7 +4,7 @@ const Recipe = require("../models/Recipe");
 const titleFun = (title) => title && "Cooking Blog-" + title;
 /*
  *GET /
- *Home
+ *Home Page
  */
 
 exports.homePage = async (req, res) => {
@@ -84,6 +84,34 @@ exports.searchRecipe = async (req, res) => {
     res.status(500).send({ message: error.message || "something went wrong" });
   }
 };
+
+/*
+ *GET /explore-latest
+ *Explore Latest
+ */
+
+ exports.exploreLatest = async (req, res) => {
+  try {
+    const limit = 20;
+    const recipes = await Recipe.find({}).sort({_id:-1}).limit(limit);
+    res.render("explore-latest", { title: titleFun("Explore Latest"), recipes });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Dummy Data Example
