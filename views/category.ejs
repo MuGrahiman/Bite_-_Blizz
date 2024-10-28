@@ -1,34 +1,17 @@
-<h1 class="pb-4">Explore Categories</h1>
+<% if (category != null ) {%>
+
+<h1 class="pb-4"><%=category%> Category</h1>
 
 <!-- breadcrumb-item -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/categories">Categories</a></li>
     <li class="breadcrumb-item active" aria-current="page">
-       Categories
+      <%=category%> Category
     </li>
   </ol>
 </nav>
-
-<!-- Iterating categories items  -->
-<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 mb-4">
-  <% if (typeof categories !== 'undefined' && categories.length >0) {%> <%
-  categories.forEach((category,index)=>{%>
-  <a
-    href="/categories/<%-category.name%>"
-    class="col text-center category__link"
-  >
-    <div class="category__img shadow">
-      <img
-        src="/img/<%-category.image%>"
-        loading="lazy"
-        alt="<%-category.name%>"
-      />
-    </div>
-    <div class="pt-1"><%-category.name%></div>
-  </a>
-  <%})%> <% } %>
-</div>
 
 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
   <% if (typeof categoryById !== 'undefined' && categoryById.length >0) {%> <%
@@ -47,3 +30,4 @@
   <p>No item found</p>
   <%}%>
 </div>
+<% }%>

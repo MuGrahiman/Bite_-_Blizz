@@ -4,7 +4,7 @@ const Recipe = require("../models/Recipe");
 const titleFun = (title) => title && "Cooking Blog-" + title;
 /*
  *GET /
- *Home 
+ *Home
  */
 
 exports.homePage = async (req, res) => {
@@ -34,8 +34,27 @@ exports.exploreCategories = async (req, res) => {
 };
 
 /*
+ *GET /categories/:id
+ *Category
+ */
+
+exports.exploreCategoriesById = async (req, res) => {
+  try {
+    const category = req.params.id;
+    const categoryById = await Recipe.find({ category: category });
+    res.render("category", {
+      title: titleFun(category+"-Category"),
+      category,
+      categoryById,
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+};
+
+/*
  *GET /recipe/:id
- *Recipes
+ *Recipe
  */
 
 exports.exploreRecipe = async (req, res) => {
@@ -43,11 +62,17 @@ exports.exploreRecipe = async (req, res) => {
     const recipeId = req.params.id;
 
     const recipe = await Recipe.findById(recipeId);
-    res.render("recipe", { title: titleFun("Recipe"), recipe }); 
+    res.render("recipe", { title: titleFun(recipe.name+"-Recipe"), recipe });
   } catch (error) {
     res.status(500).send({ message: error.message || "something went wrong" });
   }
 };
+
+
+
+
+
+
 
 /**
  * Dummy Data Example
