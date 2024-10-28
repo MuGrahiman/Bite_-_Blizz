@@ -43,7 +43,7 @@ exports.exploreCategoriesById = async (req, res) => {
     const category = req.params.id;
     const categoryById = await Recipe.find({ category: category });
     res.render("category", {
-      title: titleFun(category+"-Category"),
+      title: titleFun(category + "-Category"),
       category,
       categoryById,
     });
@@ -62,17 +62,28 @@ exports.exploreRecipe = async (req, res) => {
     const recipeId = req.params.id;
 
     const recipe = await Recipe.findById(recipeId);
-    res.render("recipe", { title: titleFun(recipe.name+"-Recipe"), recipe });
+    res.render("recipe", { title: titleFun(recipe.name + "-Recipe"), recipe });
   } catch (error) {
     res.status(500).send({ message: error.message || "something went wrong" });
   }
 };
 
+/*
+ *POST /search
+ *Search
+ */
 
-
-
-
-
+exports.searchRecipe = async (req, res) => {
+  try {
+    const searchTerm = req.body.searchTerm;
+    const recipes = await Recipe.find({
+      $text: { $search: searchTerm, $diacriticSensitive: true },
+    });
+    res.render("search", { title: titleFun("Search"), recipes });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+};
 
 /**
  * Dummy Data Example
