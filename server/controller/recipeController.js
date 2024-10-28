@@ -90,28 +90,38 @@ exports.searchRecipe = async (req, res) => {
  *Explore Latest
  */
 
- exports.exploreLatest = async (req, res) => {
+exports.exploreLatest = async (req, res) => {
   try {
     const limit = 20;
-    const recipes = await Recipe.find({}).sort({_id:-1}).limit(limit);
-    res.render("explore-latest", { title: titleFun("Explore Latest"), recipes });
+    const recipes = await Recipe.find({}).sort({ _id: -1 }).limit(limit);
+    res.render("explore-latest", {
+      title: titleFun("Explore Latest"),
+      recipes,
+    });
   } catch (error) {
     res.status(500).send({ message: error.message || "something went wrong" });
   }
 };
 
+/*
+ *GET /explore-random
+ *Explore Random
+ */
 
+exports.exploreRandom = async (req, res) => {
+  try {
+    const count = await Recipe.find({}).countDocuments();
+    const random = Math.floor(Math.random() * count);
 
-
-
-
-
-
-
-
-
-
-
+    const recipe = await Recipe.findOne().skip(random).exec();
+    res.render("explore-random", {
+      title: titleFun("Explore Random"),
+      recipe,
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+};
 
 /**
  * Dummy Data Example
