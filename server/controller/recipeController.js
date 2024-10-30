@@ -123,16 +123,71 @@ exports.exploreRandom = async (req, res) => {
   }
 };
 
-/**
- * Dummy Data Example
+/*
+ *GET /submit-recipe
+ *Submit Recipe
  */
 
-// async function insertDummyData() {
-//   try {
-//     await Recipe.insertMany();
-//   } catch (error) {
-//     console.log("🚀 ~ insertDummyData ~ error:", error);
-//   }
-// }
+exports.submitRecipePage = async (req, res) => {
+  try {
+    const infoErrorObj = req.flash("infoErrors");
+    const infoSuccessObj = req.flash("infoSuccess");
+    console.log(infoErrorObj);
+    res.render("submit-recipe", {
+      title: titleFun("Submit Recipe"),
+      infoErrorObj,
+      infoSuccessObj,
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+};
 
-// insertDummyData();
+/*
+ *POST /submit-recipe
+ *Submit Recipe
+ */
+
+exports.submitRecipePost = async (req, res) => {
+  try {
+    const { name, email, description, ingredients, category } = req.body;
+    const files = req.files;
+
+    switch (true) {
+      case !name:
+        throw new Error("Field 'name' is required");
+      case !email:
+        throw new Error("Field 'email' is required");
+      case !description:
+        throw new Error("Field 'description' is required");
+      case !ingredients[0]:
+        throw new Error("Field 'ingredients' is required");
+      case !category:
+        throw new Error("Field 'category' is required");
+      case !files || !files.image || Object.keys(files).length === 0:
+        throw new Error("No files were uploaded.");
+    }
+
+    let newImageName = Date.now() + files.image.name;
+    const uploadPath =
+      require("path").resolve("./") + "/public/uploads/" + newImageName;
+    await files.image.mv(uploadPath, (err) => err && res.status(500).send(err));
+
+    const newRecipe = new Recipe({
+      name: name,
+      email: email,
+      image: newImageName,
+      category: category,
+      description: description,
+      ingredients: ingredients,
+    });
+
+    await newRecipe.save();
+
+    req.flash("infoSuccess", "Recipe has been added.");
+    res.redirect("/submit-recipe");
+  } catch (error) {
+    req.flash("infoErrors", error.message);
+    res.redirect("/submit-recipe");
+  }
+};
