@@ -10,4 +10,6 @@ router.post('/search',recipeController.searchRecipe)
 router.get('/explore-latest',recipeController.exploreLatest)
 router.get('/explore-random',recipeController.exploreRandom)
 router.route('/submit-recipe').get(recipeController.submitRecipePage).post(recipeController.submitRecipePost)
+router.get('/about',recipeController.aboutPage)
+
 module.exports = router;

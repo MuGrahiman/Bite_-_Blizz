@@ -124,6 +124,20 @@ exports.exploreRandom = async (req, res) => {
 };
 
 /*
+ *GET /explore-random
+ *Explore Random
+ */
+
+exports.aboutPage = async (req, res) => {
+  try {
+    res.render("about", { title: titleFun("About")});
+
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+};
+
+/*
  *GET /submit-recipe
  *Submit Recipe
  */
