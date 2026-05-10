@@ -7,16 +7,17 @@ const titleFun = (title) => title && "Cooking Blog-" + title;
  *Home Page
  */
 
-exports.homePage = async (req, res) => {
+exports.indexPage = async (req, res) => {
   try {
-    const limit = 5;
+    const limit = 6;
     const categories = await Category.find({}).limit(limit);
     const recipes = await Recipe.find({}).sort({ _id: -1 }).limit(limit);
-    res.render("index", { title: titleFun("Home"), categories, recipes });
+    res.render("index", { title: titleFun("Index"), categories, recipes });
   } catch (error) {
     res.status(500).send({ message: error.message || "something went wrong" });
   }
-};
+}
+
 
 /*
  *GET /categories

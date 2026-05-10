@@ -1,44 +1,153 @@
-<div class="row flex-lg-row-reverse align-items-center g-5 py-4 mb-4">
+<!-- HERO SECTION -->
+<section class="hero-section row flex-lg-row-reverse align-items-center g-5 py-5 mb-5">
+
   <div class="col-12 col-lg-6">
-    <img
-      src="/img/hero-image.png"
-      width="607"
-      height="510"
-      class="d-block mx-lg-auto img-fluid"
-      loading="lazy"
-      alt="hero-image"
-    />
+
+    <div class="position-relative">
+
+      <img
+        src="/img/hero-image.png"
+        width="607"
+        height="510"
+        class="d-block mx-auto img-fluid rounded-5 hero-image"
+        loading="eager"
+        alt="Delicious homemade food prepared by a chef"
+      />
+
+      <div class="position-absolute bottom-0 start-0 translate-middle-y bg-white shadow rounded-4 p-4 d-none d-md-block">
+        <h5 class="fw-bold mb-1">
+          Publish Recipes For Free
+        </h5>
+
+        <p class="text-secondary small mb-0">
+          Inspire food lovers through your cooking creativity.
+        </p>
+      </div>
+
+    </div>
+
   </div>
 
   <div class="col-12 col-lg-6">
-    <h1 class="display-5 fw-bold mb-3">
-      Huge selection of delicious recipe ideas
+
+    <span class="badge text-bg-dark rounded-pill px-3 py-2 mb-4">
+      Discover • Cook • Publish
+    </span>
+
+    <h1 class="display-3 fw-bold lh-1 mb-4">
+      Share Your Recipes With Food Lovers Around The World
     </h1>
-    <p class="lead">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum nesciunt
-      praesentium, nisi cum hic odio saepe nam consectetur earum possimus ab
-      deleniti modi delectus quo ut iste consequatur corporis? Minima!
+
+    <p class="lead text-secondary mb-4">
+      Discover authentic recipes from different cultures or publish your own
+      dishes for free. Inspire thousands of visitors through your cooking creativity.
     </p>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+    <div class="d-flex flex-wrap gap-3">
+
       <a
         href="/explore-latest"
-        class="btn btn-primary btn-dark btn-lg px-4 me-md-2"
-        >Explore Latest</a
+        class="btn btn-dark btn-lg  px-4 hero-btn"
       >
-      <a
-        href="/explore-random"
-        class="btn btn-outline-secondary btn-lg px-4 me-md-2"
-        >Show Random</a
-      >
-    </div>
-  </div>
-</div>
+        Explore Recipes
+      </a>
 
-<!-- category start  -->
+      <a
+        href="/submit-recipe"
+        class="btn btn-outline-dark btn-lg  px-4 hero-btn"
+      >
+        Publish Recipe
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- STATS SECTION -->
+<section class="stats-section bg-light border rounded-5 py-4 px-3 mb-5">
+
+  <div class="row row-cols-1 row-cols-sm-3 g-4 text-center">
+
+    <div class="col">
+
+      <div class="stats-card bg-white p-4 rounded-4 shadow-sm h-100">
+
+        <h3 class="fw-bold mb-1">
+          2K+
+        </h3>
+
+        <small class="text-secondary">
+          Published Recipes
+        </small>
+
+      </div>
+
+    </div>
+
+    <div class="col">
+
+      <div class="stats-card bg-white p-4 rounded-4 shadow-sm h-100">
+
+        <h3 class="fw-bold mb-1">
+          50+
+        </h3>
+
+        <small class="text-secondary">
+          Food Categories
+        </small>
+
+      </div>
+
+    </div>
+
+    <div class="col">
+
+      <div class="stats-card bg-white p-4 rounded-4 shadow-sm h-100">
+
+        <h3 class="fw-bold mb-1">
+          10K+
+        </h3>
+
+        <small class="text-secondary">
+          Monthly Visitors
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CATEGORY SECTION -->
+<section class="py-4 mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+      <h2 class="fw-bold mb-1">
+        Explore Categories
+      </h2>
+
+      <p class="text-secondary mb-0">
+        Discover recipes by cuisine and food type.
+      </p>
+    </div>
+
+    <a href="/categories"
+      class="btn btn-outline-dark rounded-pill">
+      View All
+    </a>
+
+  </div>
 
 <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3 py-4">
-  <% if (categories != '') {%> <% categories.forEach((category,index)=>{%>
+  <% if (categories?.length) {%> 
+
+    <% categories.forEach((category,index)=>{%>
+
   <a
     href="/categories/<%-category.name%>"
     class="col text-center category__link"
@@ -52,60 +161,267 @@
     </div>
     <div class="pt-1"><%-category.name%></div>
   </a>
-  <%})%> <% } %>
+  <%})%> 
+  <% } else { %>
 
-  <a href="/categories" class="col text-center category__link">
-    <div class="category__img shadow">
-      <img src="/img/view-all.jpg" loading="lazy" alt="American Food" />
+    <div class="alert alert-light border rounded-4 text-center py-4">
+      No categories available right now.
     </div>
-    <div class="pt-1">View All</div>
-  </a>
+
+  <% } %>
 </div>
-
-<!-- category end  -->
-
-<!-- Latest Start  -->
-<section class="pb-4 pt-4">
-  <div class="d-flex mb-2 align-items-center">
-    <a href="/explore-latest" class="ms-auto">View More</a>
-  </div>
-
-  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-    <% if(recipes !=''){%> <% recipes.forEach((recipe,index)=>{%>
-    <a href="/recipe/<%=recipe._id%>" class="col text-center category__link">
-      <div class="category__img category__img--large shadow">
-        <img
-          src="uploads/<%=recipe.image%>"
-          alt="<%=recipe.name%>"
-          loading="lazy"
-        />
-      </div>
-      <div class="pt-1"><%=recipe.name%></div>
-    </a>
-    <%})%> <%}%>
-  </div>
 </section>
-<!-- Latest End  -->
 
-<!-- Submit Start -->
-<section class="px-4 py-5 my-5 text-center">
-  <img
-    src="img/publish-recipe.png"
+
+
+<!-- LATEST RECIPES -->
+<section class="py-5 mb-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+      <h2 class="fw-bold mb-1">
+        Latest Recipes
+      </h2>
+
+      <p class="text-secondary mb-0">
+        Freshly published recipes from food creators.
+      </p>
+
+    </div>
+
+    <a
+      href="/explore-latest"
+      class="btn btn-outline-dark rounded-pill"
+    >
+      View More
+    </a>
+
+  </div>
+
+
+  <% if (recipes?.length) { %>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 g-4">
+
+      <% recipes.forEach((recipe,index) => { %>
+
+        <div class="col <%= recipes.length === index + 1 ? 'd-xl-none' : 'd-block' %>">
+
+          <a
+            href="/recipe/<%= recipe._id %>"
+            class="text-decoration-none text-dark"
+          >
+
+            <div class="recipe-card card border-0 shadow-sm rounded-5 overflow-hidden h-100">
+
+              <div class="ratio ratio-1x1">
+
+                <img
+                  src="/uploads/<%= recipe.image %>"
+                  alt="<%= recipe.name %>"
+                  class="recipe-image card-img-top object-fit-cover"
+                  loading="lazy"
+                />
+
+              </div>
+
+              <div class="card-body p-4">
+
+                <div class="mb-3">
+
+                  <span class="badge bg-light text-dark border rounded-pill px-3 py-2">
+                    ★ <%= recipe?.rating || "4.5" %>
+                  </span>
+
+                </div>
+
+                <h5 class="card-title fw-bold mb-2">
+
+                  <%= recipe.name %>
+
+                </h5>
+
+                <p class="card-text text-secondary small mb-0">
+                  Discover this delicious recipe and try it at home.
+                </p>
+
+              </div>
+
+            </div>
+
+          </a>
+
+        </div>
+
+      <% }) %>
+
+    </div>
+
+  <% } else { %>
+
+    <div class="alert alert-light border rounded-4 text-center py-4">
+      No recipes available right now.
+    </div>
+
+  <% } %>
+
+</section>
+
+
+<!-- WHY CHOOSE US -->
+<section class="py-5 px-4 mb-5 bg-light rounded-5">
+
+  <div class="text-center mb-5">
+
+    <span class="badge text-bg-dark rounded-pill px-3 py-2 mb-3">
+      Why Choose Us
+    </span>
+
+    <h2 class="display-5 fw-bold mb-4">
+      A Platform Built For Recipe Creators
+    </h2>
+
+    <p class="text-secondary fs-5 col-lg-8 mx-auto">
+      Share recipes, showcase creativity, and inspire food lovers through authentic cooking.
+    </p>
+
+  </div>
+
+
+  <div class="row g-4">
+
+    <div class="col-md-4">
+
+      <div class="feature-card card border-0 shadow-sm rounded-5 h-100">
+
+        <div class="card-body p-5 text-center">
+
+          <div class="feature-icon bg-dark text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+            >
+
+            <i class="bi bi-globe fs-2"></i>
+
+          </div>
+
+          <h4 class="fw-bold mb-3">
+            Global Recipes
+          </h4>
+
+          <p class="text-secondary mb-0">
+            Explore dishes and cooking traditions from around the world.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+      <div class="feature-card card border-0 shadow-sm rounded-5 h-100">
+
+        <div class="card-body p-5 text-center">
+
+          <div class="feature-icon bg-dark text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+            >
+
+            <i class="bi bi-camera fs-2"></i>
+
+          </div>
+
+          <h4 class="fw-bold mb-3">
+            Showcase Creativity
+          </h4>
+
+          <p class="text-secondary mb-0">
+            Publish beautiful recipes and inspire visitors with your cooking.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+      <div class="feature-card card border-0 shadow-sm rounded-5 h-100">
+
+        <div class="card-body p-5 text-center">
+
+          <div class="feature-icon bg-dark text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+            >
+
+            <i class="bi bi-rocket-takeoff fs-2"></i>
+
+          </div>
+
+          <h4 class="fw-bold mb-3">
+            Publish For Free
+          </h4>
+
+          <p class="text-secondary mb-0">
+            Share recipes with thousands of visitors without any cost.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FINAL CTA -->
+<section class="py-5 mb-5">
+<div class="final-cta card  overflow-hidden">
+    <div class="py-4">
+      <img  src="img/publish-recipe.png"
     alt="Publish your recipe for Free today"
     width="566"
     height="208"
-    class="d-block mx-auto mb-4 img-fluid"
-  />
-  <h1 class="display-5 fw-bold">Publish your recipe for Free today</h1>
-  <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">
-      Publish your Recipe in front of thousands of people for free.
+    class=" img-fluid d-block mx-auto mb-4 " loading="lazy"
+    >
+</div>
+  <div class="card-body bg-dark text-white rounded-top-5 p-5 text-center shadow-lg overflow-hidden position-relative">
+
+    <span class="badge text-bg-light rounded-pill px-3 py-2 mb-4">
+      Start Publishing Today
+    </span>
+
+    <h2 class="card-title display-4 fw-bold mb-4">
+      Ready To Publish Your Recipe?
+    </h2>
+
+    <p class="card-text fs-5 text-light col-lg-7 mx-auto mb-4">
+      Share your cooking creativity with thousands of food lovers around the world.
     </p>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-      <a href="/submit-recipe" class="btn btn-primary btn-dark btn-lg"
-        >Submit Recipe</a
+
+    <div class="d-flex justify-content-center flex-wrap gap-3">
+
+      <a
+        href="/submit-recipe"
+        class="btn btn-light btn-lg rounded-pill px-5"
       >
+        Submit Recipe
+      </a>
+
+      <a
+        href="/explore-latest"
+        class="btn btn-outline-light btn-lg rounded-pill px-5"
+      >
+        Explore Recipes
+      </a>
+
     </div>
+
   </div>
+</div>
 </section>
-<!-- Submit End -->

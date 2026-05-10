@@ -45,3 +45,101 @@ body{
  .category__img--large{
     height: 330px;
  }
+
+ /* HERO */
+.hero-image {
+  transition: transform 0.5s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.02);
+}
+
+.hero-floating-card {
+  max-width: 260px;
+  backdrop-filter: blur(10px);
+}
+
+/* BUTTONS */
+.hero-btn {
+  transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* STATS */
+.stats-card {
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 2rem rgba(0,0,0,0.08) !important;
+}
+
+/* CATEGORY CARDS */
+.category-card {
+  transition: all 0.3s ease;
+}
+
+.category-card img {
+  transition: transform 0.5s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1rem 2rem rgba(0,0,0,0.08) !important;
+}
+
+.category-card:hover img {
+  transform: scale(1.08);
+}
+
+/* RECIPE CARDS */
+.recipe-card {
+  transition: all 0.3s ease;
+}
+
+.recipe-image {
+  transition: transform 0.5s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1rem 2rem rgba(0,0,0,0.1) !important;
+}
+
+.recipe-card:hover .recipe-image {
+  transform: scale(1.08);
+}
+
+/* FEATURE CARDS */
+.feature-card {
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1rem 2rem rgba(0,0,0,0.08) !important;
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: rotate(8deg) scale(1.05);
+}
+
+/* FINAL CTA */
+.final-cta {
+  transition: all 0.4s ease;
+}
+
+.final-cta:hover {
+  transform: translateY(-4px);
+}
