@@ -124,8 +124,8 @@ exports.exploreRandom = async (req, res) => {
 };
 
 /*
- *GET /explore-random
- *Explore Random
+ *GET /about
+ *About Page
  */
 
 exports.aboutPage = async (req, res) => {
@@ -136,7 +136,18 @@ exports.aboutPage = async (req, res) => {
     res.status(500).send({ message: error.message || "something went wrong" });
   }
 };
+/*
+ *GET /contact
+ *Contact Page
+ */
+exports.contactPage = async (req, res) => {
+  try {
+    res.render("contact", { title: titleFun("Contact")});
 
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+};
 /*
  *GET /submit-recipe
  *Submit Recipe
