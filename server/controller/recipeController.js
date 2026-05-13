@@ -6,6 +6,58 @@ const titleFun = (title) => title && "Cooking Blog-" + title;
 
 /*
  *GET /
+ *Sign In Page
+ */
+
+exports.signInPage = async (req, res) => {
+  try {
+    res.render("sign-in", { title: titleFun("Sign In") });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+}
+
+/*
+ *GET /
+ *Sign Up Page
+ */
+
+exports.signUpPage = async (req, res) => {
+  try {
+    res.render("sign-up", { title: titleFun("Sign Up") });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+}
+
+/*
+ *GET /
+ *Forgot Password Page
+ */
+
+exports.forgotPasswordPage = async (req, res) => {
+  try {
+    res.render("forgot-password", { title: titleFun("Forgot Password") });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+}
+
+/*
+ *GET /
+ *Mail Confirmation Page
+ */
+
+exports.mailConfirmationPage = async (req, res) => {
+  try {
+    res.render("mail-confirmation", { title: titleFun("Mail Confirmation") });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "something went wrong" });
+  }
+}
+
+/*
+ *GET /
  *Home Page
  */
 

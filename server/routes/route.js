@@ -3,6 +3,10 @@ const router = express.Router();
 
 const recipeController = require("../controller/recipeController.js");
 router.get('/',recipeController.indexPage)
+router.get('/sign-in',recipeController.signInPage)
+router.get('/sign-up',recipeController.signUpPage)
+router.get('/forgot-password',recipeController.forgotPasswordPage)
+router.get('/mail-confirmation',recipeController.mailConfirmationPage)
 router.get('/recipe/:id',recipeController.exploreRecipe)
 router.get('/categories',recipeController.exploreCategories)
 router.get('/categories/:id',recipeController.exploreCategoriesById)
