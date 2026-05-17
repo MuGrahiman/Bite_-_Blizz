@@ -24,56 +24,13 @@
 
 	<body>
 		<div class="container-xxl px-md-5 bg-white shadow-lg">
-			<header
-				class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 sticky-top bg-white border-bottom">
-				<a
-					href="/"
-					class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-					<img
-						src="/img/logo.svg"
-						width="229"
-						height="68"
-						alt="cooking blog icon" />
-				</a>
-
-				<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-					<li>
-						<a href="/" class="nav-link px-2 link-secondary">Home</a>
-					</li>
-					<li>
-						<a href="/about" class="nav-link px-2 link-secondary">About</a>
-					</li>
-					<li>
-						<a href="/submit-recipe" class="nav-link px-2 link-secondary"
-							>Submit</a
-						>
-					</li>
-					<li>
-						<a href="/contact" class="nav-link px-2 link-secondary">Contact</a>
-					</li>
-				</ul>
-
-				<div class="col-md text-end">
-					<form action="/search" method="post">
-						<input
-							type="search"
-							name="searchTerm"
-							placeholder="Search ..."
-							aria-label="search"
-							class="form-control" />
-					</form>
-				</div>
-			</header>
+			<!-- Include the header partial -->
+			<%- include('../partials/header') %>
 
 			<main class="mb-4 overflow-hidden"><%- body %></main>
 
-			<footer class="bg-dark text-white border-top py-4 rounded-top-2">
-				<div class="container text-center">
-					<p class="mb-0">© 2026 MuG. All Rights Reserved.</p>
-					<p class="mb-0">Built by Mujeeb Rahiman</p>
-				</div>
-			</footer>
-
+			<!-- Include the footer partial -->
+			<%- include('../partials/footer') %>
 		</div>
 
 		<script

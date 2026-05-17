@@ -2,16 +2,11 @@
 
 <h1 class="pb-4"><%=category%> Category</h1>
 
-<!-- breadcrumb-item -->
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item"><a href="/categories">Categories</a></li>
-    <li class="breadcrumb-item active" aria-current="page">
-      <%=category%> Category
-    </li>
-  </ol>
-</nav>
+<% const breadcrumbItems = [
+{ path: '/categories', label: 'Categories' },
+ { label: category + ' Category' }
+ ]; %>
+<%- include('components/breadcrumb', { items: breadcrumbItems }) %>
 
 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
   <% if (typeof categoryById !== 'undefined' && categoryById.length >0) {%> <%

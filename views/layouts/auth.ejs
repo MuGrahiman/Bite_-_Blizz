@@ -1,0 +1,52 @@
+<!-- views/layouts/auth-layout.ejs -->
+<section class="container py-5 min-vh-100 d-flex align-items-center">
+	<div class="row g-0 rounded-5 overflow-hidden shadow-lg border w-100">
+		<!-- ===================================================== -->
+		<!-- VISUAL SECTION -->
+		<!-- ===================================================== -->
+		<div class="col-lg-7 d-none d-lg-block position-relative overflow-hidden">
+			<!-- BACKGROUND IMAGE -->
+			<img
+				src="<%= imageSrc %>"
+				alt="<%= imageAlt %>"
+				class="img-fluid w-100 h-100 object-fit-cover"
+				style="min-height: 950px" />
+
+			<!-- DARK OVERLAY -->
+			<div
+				class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+
+			<!-- OVERLAY CONTENT -->
+			<div
+				class="position-absolute top-50 start-50 translate-middle text-white text-center px-5 w-100">
+				<span class="badge bg-white text-dark rounded-pill px-3 py-2 mb-4">
+					<%= overlayBadge %>
+				</span>
+				<h2 class="display-5 fw-bold mb-4"><%= overlayHeading %></h2>
+				<p class="fs-5 text-light opacity-75 col-lg-8 mx-auto mb-0">
+					<%= overlayText %>
+				</p>
+			</div>
+		</div>
+
+		<!-- ===================================================== -->
+		<!-- FORM SECTION -->
+		<!-- ===================================================== -->
+		<div class="col-lg-5 d-flex align-items-center">
+			<div class="w-100 p-4 p-lg-5 mx-auto" style="max-width: 500px">
+				<!-- HEADER -->
+				<div class="mb-5 text-center text-lg-start">
+					<span class="badge text-bg-light border rounded-pill px-3 py-2 mb-4">
+						<%= headerBadge %>
+					</span>
+					<h1 class="fw-bold display-6 mb-3"><%= headerTitle %></h1>
+					<p class="text-secondary mb-0"><%= headerText %></p>
+				</div>
+
+				<!-- FORM CONTENT -->
+				<%- body %>
+				<!-- Render the specific form content here -->
+			</div>
+		</div>
+	</div>
+</section>
