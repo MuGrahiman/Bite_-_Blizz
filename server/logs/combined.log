@@ -1,0 +1,10 @@
+{"level":"info","message":"GET /mail-confirmation 200 5987 - 209.245 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:41"}
+{"level":"info","message":"GET /js/script.js 304 - - 89.260 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:41"}
+{"level":"info","message":"GET /css/style.css 304 - - 552.149 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:42"}
+{"level":"info","message":"GET /img/logo.svg 304 - - 578.395 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:42"}
+{"level":"info","message":"GET /img/i-like-food.svg 304 - - 83.532 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:42"}
+{"level":"info","message":"GET /sign-in 200 7413 - 197.072 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:46"}
+{"level":"info","message":"GET /img/sign-in.png 200 1233535 - 99.992 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:46"}
+{"level":"info","message":"GET /favicon.ico 404 1286 - 102.797 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:48"}
+{"level":"info","message":"GET /sign-up 200 8949 - 115.637 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:50"}
+{"level":"info","message":"GET /img/sign-up.png 200 2045134 - 93.021 ms","service":"cooking-blog","timestamp":"2026-05-19 17:15:50"}

@@ -1,4 +1,4 @@
-require( "../models/database" );
+// require( "../models/database" );
 const Category = require( "../models/Category" );
 const Recipe = require( "../models/Recipe" );
 const titleFun = ( title ) => title && "Cooking Blog-" + title;

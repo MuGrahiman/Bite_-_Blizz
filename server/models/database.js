@@ -5,7 +5,9 @@ const MongoDB_USER = process.env.MONGODB_USER
 const MongoDB_PASS = encodeURIComponent(process.env.MONGODB_PASS)
 const MongoDB_CLUSTER =  process.env.MONGODB_CLUSTER
 const MongoDB_DB = process.env.MONGODB_DB
-const MongoDB_URI = `mongodb+srv://${MongoDB_USER}:${MongoDB_PASS}@${MongoDB_CLUSTER}.mongodb.net/${MongoDB_DB}?retryWrites=true&w=majority`;
+const MongoDB_URI = `mongodb+srv://${MongoDB_USER}:${MongoDB_PASS}@${MongoDB_CLUSTER}.mongodb.net/${MongoDB_DB}?retryWrites=true&w=majority`
+module.exports = {MongoDB_URI
+};
 
 mongoose.connect(MongoDB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
