@@ -1,0 +1,18 @@
+@PORT = 3000
+@BASE_URL = http://localhost:{{PORT}}
+
+### base url
+GET {{BASE_URL}}
+
+### Signup with Full User Profile (Custom API)
+@USER = {{$timestamp}}
+@PASSWORD = {{$guid}}
+POST {{BASE_URL}}/sign-up
+Content-Type: application/json
+
+{
+    "name": "Test User {{USER}}",
+    "email": "user{{USER}}@example.com",
+    "password": "A{{PASSWORD}}",
+    "confirmPassword": "A{{PASSWORD}}"
+}

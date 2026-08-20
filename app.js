@@ -3,129 +3,107 @@
  * Security-first, modular, production-ready foundation
  */
 
-require("dotenv").config();
+require( "dotenv" ).config();
 
-const express = require("express");
-const expressEjsLayouts = require("express-ejs-layouts");
-const path = require("path");
-const session = require("express-session");
-const MongoStore = require('connect-mongo').default; 
-const cookieParser = require("cookie-parser");
-const flash = require("connect-flash");
+const express = require( "express" );
+const expressEjsLayouts = require( "express-ejs-layouts" );
+const path = require( "path" );
+const session = require( "express-session" );
+const cookieParser = require( "cookie-parser" );
+const flash = require( "connect-flash" );
 
 // Configuration imports
-const connectDB = require("./server/config/db");
-const { securityMiddleware, authLimiter } = require("./server/config/security");
-const { requestLogger } = require("./server/middleware/logger");
-const { globalErrorHandler, notFoundHandler } = require("./server/middleware/errorHandler");
-const { handleUploadError } = require("./server/middleware/upload");
+const connectDB = require( "./server/config/db" );
+const { securityMiddleware, authLimiter } = require( "./server/config/security" );
+const { requestLogger, logger } = require( "./server/middleware/logger" );
+const { globalErrorHandler, notFoundHandler } = require( "./server/middleware/errorHandler" );
+const { handleUploadError } = require( "./server/middleware/upload" );
+const sessionConfigWithMongo = require( "./server/config/sessionConfig" );
+const viewLocals = require( "./server/middleware/viewLocals" );
 
 // Route imports
 //TODO: const routes = require("./server/routes/route.js");
-const routes = require("./server/routes/index");
+const routes = require( "./server/routes/index" );
 
 // Initialize Express
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Validate critical environment variables
-if (!process.env.SESSION_SECRET || !process.env.CLOUDINARY_CLOUD_NAME) {
-  console.error("FATAL: Missing required environment variables. Check .env file.");
-  process.exit(1);
+if ( !process.env.SESSION_SECRET || !process.env.CLOUDINARY_CLOUD_NAME ) {
+  logger.error( "FATAL: Missing required environment variables. Check .env file." );
+  process.exit( 1 );
 }
 
 // Connect to database
 connectDB();
-
+app.disable('view cache'); 
 // Security middleware (must be first) — imported from config/security.js
-app.use(securityMiddleware);
+app.use( securityMiddleware );
 
 // Request logging
-app.use(requestLogger);
+app.use( requestLogger );
 
 // Body parsing
-app.use(express.json({ limit: "10kb" }));
-app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+app.use( express.json( { limit: "10kb" } ) );
+app.use( express.urlencoded( { extended: true, limit: "10kb" } ) );
 
 // Cookie parser with secret from env
-app.use(cookieParser(process.env.SESSION_SECRET));
-// Session configuration with MongoDB store
+app.use( cookieParser( process.env.SESSION_SECRET ) );
+// Session management with MongoDB store
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    name: "sessionId",
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI,
-      ttl: 14 * 24 * 60 * 60,
-      autoRemove: "native",
-    }),
-    cookie: {
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      sameSite: "strict",
-    },
-  })
+  session( sessionConfigWithMongo )
 );
 
 // Flash messages
-app.use(flash());
+app.use( flash() );
 
 // Static files
 app.use(
-  express.static(path.join(__dirname, "public"), {
+  express.static( path.join( __dirname, "public" ), {
     maxAge: "1d",
-    setHeaders: (res, path) => {
-      if (path.endsWith(".html")) {
-        res.setHeader("Cache-Control", "no-cache");
+    setHeaders: ( res, path ) => {
+      if ( path.endsWith( ".html" ) ) {
+        res.setHeader( "Cache-Control", "no-cache" );
       }
     },
-  })
+  } )
 );
-
 // View engine configuration
-app.use(expressEjsLayouts);
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.set("layout", "./layouts/main");
+app.use( expressEjsLayouts );
+app.set( "view engine", "ejs" );
+app.set( "views", path.join( __dirname, "views" ) );
+app.set( "layout", "./layouts/main" );
 
 // Flash and user locals
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash("success_msg");
-  res.locals.error_msg = req.flash("error_msg");
-  res.locals.error = req.flash("error");
-  res.locals.user = req.session.user || null;
-  next();
-});
+app.use( viewLocals );
 
 // Mount routes
-app.use("/", routes);
+app.use( "/", routes );
 
 // Handle upload errors
-app.use(handleUploadError);
+app.use( handleUploadError );
 
 // 404 handler — must be after all routes
-app.use(notFoundHandler);
+app.use( notFoundHandler );
 
 // Global error handler — must be last
-app.use(globalErrorHandler);
+app.use( globalErrorHandler );
 
 // Start server
-const server = app.listen(port, () => {
-  console.log(`Server running in ${process.env.NODE_ENV || "development"} on port ${port}`);
-});
+const server = app.listen( port, () => {
+  logger.info( `Server running in ${ process.env.NODE_ENV || "development" } on port ${ port }` );
+} );
 
 // Unhandled rejections
-process.on("unhandledRejection", (err) => {
-  console.error("UNHANDLED REJECTION! 💥", err.name, err.message);
-  server.close(() => process.exit(1));
-});
+process.on( "unhandledRejection", ( err ) => {
+  logger.error( "UNHANDLED REJECTION! ", err.name, err.message );
+  server.close( () => process.exit( 1 ) );
+} );
 
-process.on("SIGTERM", () => {
-  console.log("SIGTERM received. Shutting down gracefully...");
-  server.close(() => console.log("Process terminated"));
-});
+process.on( "SIGTERM", () => {
+  logger.info( "SIGTERM received. Shutting down gracefully..." );
+  server.close( () => logger.info( "Process terminated" ) );
+} );
 
 module.exports = app;

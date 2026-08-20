@@ -1,6 +1,72 @@
 <!-- ===================================================== -->
-<!-- EMAIL CONFIRMATION PAGE -->
+<!-- DYNAMIC AUTHENTICATION EMAIL PAGE -->
 <!-- ===================================================== -->
+<%
+	const authType =
+		typeof type !== 'undefined'
+			? type
+			: 'verify';
+
+	const userEmail =
+		typeof email !== 'undefined'
+			? email
+			: 'user@example.com';
+
+	const authContent = {
+
+		reset: {
+			leftBadge: 'PASSWORD RECOVERY',
+
+			leftTitle: 'Password Reset Sent Successfully',
+
+			leftDescription:
+				'We’ve securely sent a password reset link to your email address. Open your inbox and follow the instructions to regain access to your account.',
+
+			rightBadge: 'CHECK YOUR EMAIL',
+
+			rightTitle: 'Open Your Inbox',
+
+			rightDescription:
+				'We’ve sent a password reset link to:',
+
+			helpText:
+				'If you don’t see the email within a few minutes, check your spam, junk, or promotions folder.',
+
+			resendLink: '/forgot-password',
+
+			loginText: 'Remember your password?',
+
+			loginLinkText: 'Back To Login'
+		},
+
+		verify: {
+			leftBadge: 'EMAIL VERIFICATION',
+
+			leftTitle: 'Verify Your Account',
+
+			leftDescription:
+				'We’ve securely sent an account verification link to your email address. Open your inbox and verify your account to start exploring and sharing recipes.',
+
+			rightBadge: 'VERIFY YOUR EMAIL',
+
+			rightTitle: 'Check Your Inbox',
+
+			rightDescription:
+				'We’ve sent an account verification link to:',
+
+			helpText:
+				'If you don’t see the email within a few minutes, check your spam, junk, or promotions folder.',
+
+			resendLink: '/register',
+
+			loginText: 'Already verified your account?',
+
+			loginLinkText: 'Continue To Login'
+		}
+	};
+
+	const content = authContent[authType];
+%>
 
 <section class="container py-5">
 	<div class="row justify-content-center">
@@ -15,13 +81,11 @@
 					<div class="text-center p-4 p-lg-5 w-100" style="max-width: 540px">
 						<!-- STATUS BADGE -->
 						<span class="badge text-bg-dark rounded-pill px-3 py-2 mb-4">
-							PASSWORD RECOVERY
+							<%= content.leftBadge %>
 						</span>
 
 						<!-- SECTION TITLE -->
-						<h1 class="display-5 fw-bold mb-4">
-							Password Reset Sent Successfully
-						</h1>
+						<h1 class="display-5 fw-bold mb-4"><%= content.leftTitle %></h1>
 
 						<!-- SUCCESS ICON -->
 						<div
@@ -32,9 +96,7 @@
 
 						<!-- SECTION DESCRIPTION -->
 						<p class="fs-5 text-secondary col-lg-10 mx-auto mb-0">
-							We’ve securely sent a password reset link to your email address.
-							Open your inbox and follow the instructions to regain access to
-							your account.
+							<%= content.leftDescription %>
 						</p>
 					</div>
 				</div>
@@ -50,30 +112,31 @@
 						<!-- PAGE BADGE -->
 						<span
 							class="badge text-bg-light border rounded-pill px-3 py-2 mb-4">
-							CHECK YOUR EMAIL
+							<%= content.rightBadge %>
 						</span>
 
 						<!-- PAGE TITLE -->
-						<h2 class="fw-bold display-6 mb-4">Open Your Inbox</h2>
+						<h2 class="fw-bold display-6 mb-4"><%= content.rightTitle %></h2>
 
 						<!-- DESCRIPTION -->
 						<p class="text-secondary fs-5 mb-4">
-							We’ve sent a password reset link to:
+							<%= content.rightDescription %>
 						</p>
 
 						<!-- EMAIL DISPLAY -->
 						<div class="bg-light border rounded-4 py-3 px-4 mb-4">
-							<p class="fw-semibold text-dark mb-0">user@example.com</p>
+							<p class="fw-semibold text-dark mb-0"><%= userEmail %></p>
 						</div>
 
 						<!-- HELP TEXT -->
-						<p class="text-secondary mb-5">
-							If you don’t see the email within a few minutes, check your spam,
-							junk, or promotions folder.
-						</p>
+						<p class="text-secondary mb-5"><%= content.helpText %></p>
 
+						<!-- ===================================================== -->
 						<!-- ACTION BUTTONS -->
+						<!-- ===================================================== -->
+
 						<div class="d-grid gap-3">
+							<!-- OPEN EMAIL BUTTON -->
 							<a
 								href="https://mail.google.com"
 								target="_blank"
@@ -83,8 +146,9 @@
 								Open Email Inbox
 							</a>
 
+							<!-- RESEND EMAIL BUTTON -->
 							<a
-								href="/forgot-password"
+								href="<%= content.resendLink %>"
 								class="btn btn-outline-dark btn-lg rounded-pill py-3">
 								<i class="bi bi-arrow-repeat me-2"></i>
 
@@ -92,15 +156,18 @@
 							</a>
 						</div>
 
-						<!-- LOGIN LINK -->
+						<!-- ===================================================== -->
+						<!-- LOGIN REDIRECT -->
+						<!-- ===================================================== -->
+
 						<div class="mt-5">
 							<p class="text-secondary mb-0">
-								Remember your password?
+								<%= content.loginText %>
 
 								<a
-									href="/sign-in"
+									href="/login"
 									class="fw-semibold text-dark text-decoration-none">
-									Back To Login
+									<%= content.loginLinkText %>
 								</a>
 							</p>
 						</div>

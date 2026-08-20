@@ -1,4 +1,33 @@
 <!-- ===================================================== -->
+<!-- SAFE DEFAULTS -->
+<!-- ===================================================== -->
+
+<%
+	const validationErrors = locals.validationErrors || {};
+	const oldValues = locals.formData || {};
+%>
+<!-- ===================================================== -->
+<!-- GLOBAL ALERTS -->
+<!-- ===================================================== -->
+<% console.log("Debugging user object:", validationErrors) %>
+<% console.log("Debugging cona object:", locals.conaErrors) %>
+
+<% if (locals.successMessage) { %>
+    <%- include('./components/alert', {
+        alertMessage: locals.successMessage,
+        alertColor: 'success'
+    }) %>
+<% } %>
+
+<% if (locals.errorMessage) { %>
+    <%- include('./components/alert', {
+        alertMessage: locals.errorMessage,
+        alertColor: 'danger'
+    }) %>
+<% } %>
+
+
+<!-- ===================================================== -->
 <!-- REGISTER PAGE -->
 <!-- ===================================================== -->
 
@@ -14,7 +43,7 @@
 
 			<!-- BACKGROUND IMAGE -->
 			<img
-				src="img/sign-up.png"
+				src="/img/sign-up.png"
 				alt="Fresh ingredients and cooking preparation"
 				class="img-fluid w-100 h-100 object-fit-cover"
 				style="min-height: 950px" />
@@ -23,7 +52,6 @@
 			<div
 				class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50">
 			</div>
-
 
 			<!-- OVERLAY CONTENT -->
 			<div
@@ -43,6 +71,7 @@
 				</p>
 
 			</div>
+
 		</div>
 
 
@@ -57,7 +86,10 @@
 				class="w-100 p-4 p-lg-5 mx-auto"
 				style="max-width: 500px">
 
+				<!-- ===================================================== -->
 				<!-- REGISTER HEADER -->
+				<!-- ===================================================== -->
+
 				<div class="mb-5 text-center text-lg-start">
 
 					<span class="badge text-bg-light border rounded-pill px-3 py-2 mb-4">
@@ -80,13 +112,22 @@
 				<!-- REGISTER FORM -->
 				<!-- ===================================================== -->
 
-				<form>
+				<form
+					action="/sign-up"
+					method="POST"
+					id="signUpForm"
+					novalidate>
 
+
+
+					<!-- ===================================================== -->
 					<!-- FULL NAME -->
+					<!-- ===================================================== -->
+
 					<div class="mb-4">
 
 						<label
-							for="fullName"
+							for="name"
 							class="form-label fw-semibold">
 
 							Full Name
@@ -101,19 +142,31 @@
 
 							<input
 								type="text"
-								id="fullName"
-								name="fullName"
+								id="name"
+								name="name"
 								autocomplete="name"
-								class="form-control border-start-0 py-3"
+								value="<%= oldValues.name || '' %>"
+								class="form-control border-start-0 py-3 <%= validationErrors.name ? 'is-invalid' : '' %>"
 								placeholder="Enter your full name" />
 
 						</div>
+
+						<small
+							id="nameError"
+							class="invalid-feedback d-block">
+
+							<%= validationErrors.name || '' %>
+
+						</small>
 
 					</div>
 
 
 
+					<!-- ===================================================== -->
 					<!-- EMAIL -->
+					<!-- ===================================================== -->
+
 					<div class="mb-4">
 
 						<label
@@ -135,16 +188,28 @@
 								id="email"
 								name="email"
 								autocomplete="email"
-								class="form-control border-start-0 py-3"
+								value="<%= oldValues.email || '' %>"
+								class="form-control border-start-0 py-3 <%= validationErrors.email ? 'is-invalid' : '' %>"
 								placeholder="Enter your email address" />
 
 						</div>
+
+						<small
+							id="emailError"
+							class="invalid-feedback d-block">
+
+							<%= validationErrors.email || '' %>
+
+						</small>
 
 					</div>
 
 
 
+					<!-- ===================================================== -->
 					<!-- PASSWORD -->
+					<!-- ===================================================== -->
+
 					<div class="mb-4">
 
 						<label
@@ -166,17 +231,28 @@
 								id="password"
 								name="password"
 								autocomplete="new-password"
-								class="form-control border-start-0 py-3"
+								class="form-control border-start-0 py-3 <%= validationErrors.password ? 'is-invalid' : '' %>"
 								placeholder="Create a password" />
 
 						</div>
+
+						<small
+							id="passwordError"
+							class="invalid-feedback d-block">
+
+							<%= validationErrors.password || '' %>
+
+						</small>
 
 					</div>
 
 
 
+					<!-- ===================================================== -->
 					<!-- CONFIRM PASSWORD -->
-					<div class="mb-4">
+					<!-- ===================================================== -->
+
+					<div class="mb-4 																																									">
 
 						<label
 							for="confirmPassword"
@@ -197,16 +273,26 @@
 								id="confirmPassword"
 								name="confirmPassword"
 								autocomplete="new-password"
-								class="form-control border-start-0 py-3"
+								class="form-control border-start-0 py-3 <%= validationErrors.confirmPassword ? 'is-invalid' : '' %>"
 								placeholder="Confirm your password" />
 
 						</div>
+
+						<small
+							id="confirmPasswordError"
+							class="invalid-feedback d-block">
+
+
+						</small>
 
 					</div>
 
 
 
+					<!-- ===================================================== -->
 					<!-- TERMS CHECKBOX -->
+					<!-- ===================================================== -->
+
 					<div class="form-check mb-4">
 
 						<input
@@ -219,6 +305,7 @@
 							for="termsAgreement">
 
 							I agree to the
+
 							<a
 								href="/terms"
 								class="text-dark text-decoration-none fw-semibold">
@@ -233,7 +320,10 @@
 
 
 
-					<!-- REGISTER BUTTON -->
+					<!-- ===================================================== -->
+					<!-- SUBMIT BUTTON -->
+					<!-- ===================================================== -->
+
 					<div class="d-grid mb-4">
 
 						<button
@@ -250,58 +340,10 @@
 
 
 
-					<!-- DIVIDER -->
-					<div class="d-flex align-items-center gap-3 mb-4">
-
-						<hr class="flex-grow-1 opacity-25" />
-
-						<span class="text-secondary small">
-							OR
-						</span>
-
-						<hr class="flex-grow-1 opacity-25" />
-
-					</div>
-
-
-
-					<!-- SOCIAL REGISTER -->
-					<div class="row g-3 mb-4">
-
-						<div class="col-6">
-
-							<button
-								type="button"
-								class="btn btn-outline-dark w-100 py-3 rounded-pill">
-
-								<i class="bi bi-google me-2"></i>
-
-								Google
-
-							</button>
-
-						</div>
-
-
-						<div class="col-6">
-
-							<button
-								type="button"
-								class="btn btn-outline-dark w-100 py-3 rounded-pill">
-
-								<i class="bi bi-facebook me-2"></i>
-
-								Facebook
-
-							</button>
-
-						</div>
-
-					</div>
-
-
-
+					<!-- ===================================================== -->
 					<!-- LOGIN LINK -->
+					<!-- ===================================================== -->
+
 					<p class="text-center text-secondary mb-0 pt-2">
 
 						Already have an account?
@@ -325,3 +367,11 @@
 	</div>
 
 </section>
+
+
+
+<!-- ===================================================== -->
+<!-- FRONTEND VALIDATION -->
+<!-- ===================================================== -->
+<!-- Load scripts in order -->
+<script type="module" src="/js/signUpForm.js" ></script>

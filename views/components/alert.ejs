@@ -1,0 +1,16 @@
+<!-- alert-items -->
+
+<% 
+const validColors = ['success', 'info', 'warning', 'danger', 'light', 'dark'];
+const alertClass = `alert-${validColors.includes(alertColor) ? alertColor : 'dark'}`;
+%>
+<div id="alert" class="container alert <%= alertClass %> alert-dismissible fade show " role="alert">
+	<!-- <%= alertMessage || 'Something went wrong.' %> -->
+	 something went wrong
+	<button
+		type="button"
+		class="btn-close"
+		data-dismiss="alert"
+		aria-label="Close"></button>
+		
+</div>
