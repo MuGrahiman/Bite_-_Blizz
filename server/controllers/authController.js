@@ -64,7 +64,7 @@ exports.register = catchAsync( async ( req, res ) => {
     tokenId: tokenDoc._id,
   } );
 
-  res.redirect( "/mail-confirmation" );
+  res.json( { message: "successfully registered" } );
 } );
 
 // GET /verify-email

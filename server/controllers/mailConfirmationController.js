@@ -32,7 +32,7 @@ const { getMailConfig } = require( "../config/mail" );
 
 // GET /mail-confirmation
 exports.mailConfirmationPage = catchAsync( async ( req, res ) => {
-    console.log( "Mail Confirmation Page accessed" );
+    console.debug( "Mail Confirmation Page accessed" );
     const cookieData = req.signedCookies[ COOKIE_NAMES.MAIL_CONFIRM ];
 
    return res.render( "mail-confirmation", {

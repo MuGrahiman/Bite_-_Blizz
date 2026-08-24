@@ -169,8 +169,7 @@ const SignUpForm = ( () => {
         'Content-Type': 'application/json'
       }
     } );
-    console.log("🚀 ~ submitForm ~ response:", response)
-    return response.data;
+    return response.json();
   }
 
   // ============================================================
@@ -236,7 +235,6 @@ const SignUpForm = ( () => {
 
       try {
         const data = await submitForm( form );
-        console.log("🚀 ~ attach ~ data:", data)
         showAlert( messagesContainer, data.message || "Registration successful!", "success" );
         form.reset();
         clearAllErrors( form );
