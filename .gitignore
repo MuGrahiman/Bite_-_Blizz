@@ -3,3 +3,8 @@ node_modules/
 
 # Environment variables
 .env
+
+vscode/
+
+# Logs
+server/logs/
